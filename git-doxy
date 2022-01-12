@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pgrep python3 | xargs -n1 -r kill -9
+doxygen && cd doc/html && /bin/bash -c 'python3 -m http.server &'

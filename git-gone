@@ -1,0 +1,21 @@
+#!/bin/bash
+
+git fetch
+
+REMOTE=origin
+if [ $# -ge 1 ]; then
+  if [ $* != *--force*]; then
+    REMOTE=$1
+  fi
+fi
+
+echo "Pruning ${REMOTE}: $#"
+
+if [[ $* == *--force* ]]
+then
+  git remote prune ${REMOTE} && git branch -vv | cut -c 3- | grep ': gone]' | awk '{print $1}' | xargs -n1 -r echo git branch -D
+  git branch | grep -v "^\*" | xargs -n1 -r echo git branch -D
+else
+  git remote prune ${REMOTE} && git branch -vv | cut -c 3- | grep ': gone]' | awk '{print $1}' | xargs -n1 -r echo git branch -d
+  git branch | grep -v "^\*" | xargs -n1 -r echo git branch -d
+fi

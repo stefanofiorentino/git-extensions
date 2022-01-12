@@ -1,0 +1,8 @@
+#!/bin/bash
+
+BRANCH_NAME="${1}"
+
+git stash && \
+    git fetch && \
+    git checkout "${BRANCH_NAME}" && \
+    git reset --hard "origin/${BRANCH_NAME}" || (echo "ERROR: resetting to origin's HEAD"; exit 1)
