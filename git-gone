@@ -9,13 +9,11 @@ if [ $# -ge 1 ]; then
   fi
 fi
 
-echo "Pruning ${REMOTE}: $#"
-
+COMMAND_FLAG=-d
 if [[ $* == *--force* ]]
 then
-  git remote prune ${REMOTE} && git branch -vv | cut -c 3- | grep ': gone]' | awk '{print $1}' | xargs -n1 -r echo git branch -D
-  git branch | grep -v "^\*" | xargs -n1 -r echo git branch -D
-else
-  git remote prune ${REMOTE} && git branch -vv | cut -c 3- | grep ': gone]' | awk '{print $1}' | xargs -n1 -r echo git branch -d
-  git branch | grep -v "^\*" | xargs -n1 -r echo git branch -d
+  COMMAND_FLAG=-D
 fi
+
+git remote prune ${REMOTE} && git branch -vv | cut -c 3- | grep ': gone]' | awk '{print $1}' | xargs -n1 -r echo git branch ${COMMAND_FLAG}
+git branch | grep -v "^\*" | xargs -r -n1 echo git branch ${COMMAND_FLAG}
