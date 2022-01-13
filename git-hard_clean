@@ -1,3 +1,8 @@
 #!/bin/bash
 
+git stash
+if [[ $* == *--force* ]]
+then
+    git stash drop
+fi
 git clean -xdff && git clean -Xdff
