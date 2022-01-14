@@ -1,0 +1,15 @@
+#!/bin/bash
+
+BRANCH_NAME="${1}"
+if [ $# -le 1 ]; then
+    echo "Usage: $0 BRANCH_NAME"
+    echo "    Need at least the branch name"
+    exit 1
+fi
+
+[[ -d ${BRANCH_NAME} ]] && \
+    echo ${BRANCH_NAME} && \
+    cd ${BRANCH_NAME} && \
+    git hard_checkout develop && \
+    cd -
+git hard_checkout develop
