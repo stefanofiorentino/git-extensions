@@ -1,15 +1,11 @@
 #!/bin/bash
 
-BRANCH_NAME="${1}"
-if [ $# -le 1 ]; then
-    echo "Usage: $0 BRANCH_NAME"
-    echo "    Need at least the branch name"
-    exit 1
-fi
-
-[[ -d ${BRANCH_NAME} ]] && \
-    echo ${BRANCH_NAME} && \
-    cd ${BRANCH_NAME} && \
+# if you have a dependency to update, 
+# define the GIT_DEVELOP_DEPENDENCY in you ~/.bashrc
+[[ ! -z "${GIT_DEVELOP_DEPENDENCY}" ]] && \
+    echo ${GIT_DEVELOP_DEPENDENCY} && \
+    cd ${GIT_DEVELOP_DEPENDENCY} && \
     git hard_checkout develop && \
     cd -
+
 git hard_checkout develop
