@@ -4,7 +4,7 @@ git fetch
 
 REMOTE=origin
 if [ $# -ge 1 ]; then
-  if [ $* != *--force*]; then
+  if [ $* != *--force* ]; then
     REMOTE=$1
   fi
 fi
