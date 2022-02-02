@@ -9,4 +9,9 @@
     git hard_checkout develop && \
     cd -
 
-git hard_checkout develop
+if [[ $* == *--next* ]]
+then
+    git hard_checkout develop_next || exit 1
+else
+    git hard_checkout develop || exit 1
+fi
