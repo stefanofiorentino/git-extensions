@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "${1}: $#"
+SEARCH_KEYWORD="${1}"
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 SEARCH_KEYWORD"
+    echo "    Need at least the keyword to be searched"
+    exit 1
+fi
+
+git rev-list --all | xargs -r -n1 git grep ${SEARCH_KEYWORD}
