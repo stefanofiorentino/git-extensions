@@ -7,11 +7,8 @@
     echo ${GIT_DEVELOP_DEPENDENCY} && \
     cd ${GIT_DEVELOP_DEPENDENCY} && \
     git hard_checkout develop && \
+    git push -f mirror develop && \
     cd -
 
-if [[ $* == *--next* ]]
-then
-    git hard_checkout develop_next || exit 1
-else
-    git hard_checkout develop || exit 1
-fi
+git hard_checkout develop || exit 1
+git push -f mirror develop || exit 1
