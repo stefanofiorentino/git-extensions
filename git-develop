@@ -3,12 +3,12 @@
 # if you have a dependency to update, 
 # define the GIT_DEVELOP_DEPENDENCY in you ~/.bashrc
 [[ ! -z "${GIT_DEVELOP_DEPENDENCY}" ]] && \
-[[ -d "${GIT_DEVELOP_DEPENDENCY}" ]] && \
-    echo ${GIT_DEVELOP_DEPENDENCY} && \
-    cd ${GIT_DEVELOP_DEPENDENCY} && \
-    git hard_checkout develop && \
-    git push -f mirror develop && \
+if [[ -d "${GIT_DEVELOP_DEPENDENCY}" ]]; then
+    echo ${GIT_DEVELOP_DEPENDENCY}
+    cd ${GIT_DEVELOP_DEPENDENCY}
+    git hard_checkout develop
+    [[ "$(git remote -v | cut -f1)" == *"mirror"* ]] && git push -f mirror develop
     cd -
-
+fi 
 git hard_checkout develop || exit 1
-git push -f mirror develop || exit 1
+[[ "$(git remote -v | cut -f1)" == *"mirror"* ]] && git push -f mirror develop || exit 1
