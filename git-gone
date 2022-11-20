@@ -1,18 +1,23 @@
 #!/bin/bash
 
-git fetch
-
 REMOTE=origin
-if [[ $# -ge 1 ]];then
-  if [[ $* != *"--force"* ]];then
+if [[ $# -eq 2 ]];then
+  if [[ $1 != *"--force"* ]];then
       REMOTE=$1
   fi
 fi
+
+git fetch ${REMOTE}
 
 COMMAND_FLAG=-d
 if [[ $* == *"--force"* ]];then
   COMMAND_FLAG=-D
 fi
 
-git remote prune ${REMOTE} && git branch -vv | cut -c 3- | grep ': gone]' | awk '{print $1}' | xargs -n1 -r git branch ${COMMAND_FLAG}
+git remote prune ${REMOTE} \
+  && git branch -vv \
+  |  cut -c 3- \
+  |  grep ': gone]' \
+  |  awk '{print $1}' \
+  |  xargs -n1 -r git branch ${COMMAND_FLAG}
 git branch | grep -v "^\*" | xargs -r -n1 git branch ${COMMAND_FLAG}
