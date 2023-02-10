@@ -1,0 +1,9 @@
+#!/bin/bash
+
+GIT_REPOS_HOME=$PWD \
+    find . -type d -name '.git*' ! -path "*/poky-tmp/*" 2>/dev/null | \
+    sed 's/\.git$//g' | \
+    xargs -I '{}' sh -c 'readlink -e {};' | \
+    uniq | \
+    sort | \
+    xargs -I '{}' sh -c 'cd {}; echo "dir: $(pwd)"; git status -s; cd $GIT_REPOS_HOME;'
