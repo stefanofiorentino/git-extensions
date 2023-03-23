@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# if you have a dependency to update, 
+# define the GIT_DEVELOP_DEPENDENCY in you ~/.bashrc
+git hard_checkout trunk || exit 1
+[[ "$(git remote -v | cut -f1)" == *"mirror"* ]] && git push -f mirror trunk || exit 1
