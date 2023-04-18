@@ -4,5 +4,5 @@ BRANCH_NAME="${1}"
 
 git stash && \
     git fetch && \
-    git checkout "${BRANCH_NAME}" && \
-    git reset --hard "origin/${BRANCH_NAME}" || (echo "ERROR: resetting to origin's HEAD"; exit 1)
+    git checkout -b ${BRANCH_NAME} origin/${BRANCH_NAME} && \
+    git reset --hard origin/${BRANCH_NAME} || (echo "ERROR: resetting to origin's HEAD"; exit 1)
