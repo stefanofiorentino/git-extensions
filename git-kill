@@ -1,0 +1,5 @@
+#!/bin/bash
+
+PS_NAME="${1}"
+
+ps auxww | grep "${PS_NAME}" | grep -v grep | awk '{print $2}' | xargs -r -n1 kill -9
