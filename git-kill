@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ $EUID != 0 ]; then
+    sudo "$0" "$@"
+    exit $?
+fi
+
 PS_NAME="${1}"
 
 ps auxww | grep "${PS_NAME}" | grep -v grep | awk '{print $2}' | xargs -r -n1 kill -9
