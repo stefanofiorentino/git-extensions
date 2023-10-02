@@ -6,4 +6,4 @@ GIT_REPOS_HOME=$PWD \
     xargs -I '{}' sh -c 'readlink -e {};' | \
     uniq | \
     sort | \
-    xargs -I '{}' sh -c 'cd {}; echo "dir: $(pwd)"; git reset $*; cd $GIT_REPOS_HOME;'
+    xargs -I '{}' bash -c "cd {}; echo \"dir: $(pwd)\"; git reset $*"
