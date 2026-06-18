@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for d in */; do 
+    [ -d "${d}"/.git ] && \
+    echo "$(basename "$d"): $(cd "$d" && git remote get-url origin 2>/dev/null || \
+    echo 'no remote'): $(git -C "$d" rev-parse --short HEAD): $(git -C "$d" rev-parse --abbrev-ref HEAD)"; 
+done
