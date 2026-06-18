@@ -4,8 +4,8 @@ git stash
 git submodule foreach --recursive git stash
 if [[ $* == *--force* ]]
 then
-    git stash drop
-    git submodule foreach --recursive git stash drop
+    git stash clear
+    git submodule foreach --recursive git stash clear
 fi
 git clean -xdff && git clean -Xdff
 git submodule foreach --recursive git clean -xdff && git submodule foreach --recursive git clean -Xdff
